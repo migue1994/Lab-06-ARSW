@@ -20,14 +20,14 @@
 
 </head>
 
-<body  onload="app.capture()">
+<body>
 <br/>
 <form>
 	<div class="cabecera">
 		<h1>Blueprints</h1>
 		<br/>
 		<input id="author" type="text">
-		<button type="button" class="btn-outline-primary" onclick="app.update(author.value)">Get blueprints</button>
+		<button type="button" class="btn-outline-primary" onclick="onload=app.update(author.value)">Get blueprints</button>
 		<br><br>
 		<b>Author </b><output id="authorName"> </output>
 		<br/><br/>
@@ -61,6 +61,9 @@
 	<div class="contenedor1">
 		<button type="button" class="btn-outline-primary" onclick="app.restSwitch()">Change Persistance</button>
 	</div>
+	
+	<div id="mostrarPuntos"></div>
+	
 	
 
 </form>

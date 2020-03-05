@@ -1,12 +1,9 @@
 var mock = apimock;
 
 var app = (function () {
-	
-	
-	
     var authorName;
     var list = [];
-    var pointSize=3;
+    var puntos = [];
     
     let num = 0;
     
@@ -17,6 +14,9 @@ var app = (function () {
     
 
     var getPlansByName = function (author) {
+    	limpiarCanvas();
+    	vaciarListaPuntos();
+
         setName(author);
         $("#authorName").text(author);
     	$("#authorPlane").text(author+"'s blueprints:");
@@ -59,10 +59,15 @@ var app = (function () {
     };
 
     var getBlueprintsByNameAndAuthor = function (name, author) {
+    	limpiarCanvas();
+    	vaciarListaPuntos();
+    	
         mock.getBlueprintsByNameAndAuthor(name, author, getCanvas);
     };
 
     var getCanvas = function (blueprint) {
+    	startCapture();
+    	
         $("#currentBluePrint").text("Current blueprint: "+blueprint.name);
         var can=document.getElementById("myCanvas");
         var ctx=can.getContext("2d");
@@ -95,48 +100,6 @@ var app = (function () {
         }
     };
     
-    /*var capture = function (){
-    	
-    	var canvas=document.getElementById("myCanvas"),
-    	ctx=canvas.getContext("2d");
-    	var offset=getOffset(canvas);
-    	
-    	
-    	if(window.PointerEvent){
-    		canvas.addEventListener("pointerdown", draw, false);
-    	}
-    	
-    	else{
-    		canvas.addListener("mousedown", draw, false);
-    	}
-    };
-    
-    var draw = function(event){
-    	var canvas=canvas=document.getElementById("myCanvas");
-    	var ctx=canvas.getContext("2d");
-    	ctx.fillRect(event.pageX-offset, event.pageY-offset);
-    };
-    
-    var getOffset = function(obj){
-    	var offsetLeft=0;
-    	var offsetTop=0;
-    	
-    	do {
-    		if (!isNaN(obj.offsetLeft)) {
-    			offsetLeft += obj.offsetLeft;
-    		}
-    		if (!isNaN(obj.offsetTop)) {
-                offsetTop += obj.offsetTop;
-            }   
-    	} 
-    	while(obj = obj.offsetParent );
-    	
-    	return {
-    		
-    		left : offsetLeft,
-    		top : offsetTop
-    	};
-    };*/
     
     var startCapture = function(){
     	var canvas=document.getElementById("myCanvas");
@@ -147,33 +110,46 @@ var app = (function () {
     	var pointSize = 3;
 
     	function getPosition(event){
-    	     var rect = canvas.getBoundingClientRect();
-    	     var x = event.clientX - rect.left;
-    	     var y = event.clientY - rect.top;
+    		var rect = canvas.getBoundingClientRect();
+    		var x = event.clientX - rect.left;
+    		var y = event.clientY - rect.top;
     	        
-    	     drawCoordinates(x,y);
+    		punto = {coorX: x, coorY: y};
+    		puntos.push(punto);
+    	     
+    		document.getElementById("mostrarPuntos").innerHTML=JSON.stringify(puntos);
+    	     
+    		drawCoordinates(x,y);
+    	     
+    	    
     	}
 
     	function drawCoordinates(x,y){	
-    	  	var ctx = document.getElementById("myCanvas").getContext("2d");
-
-
-    	  	ctx.fillStyle = "#ff2626"; // Red color
-
-    	    ctx.beginPath();
-    	    ctx.arc(x, y, pointSize, 0, Math.PI * 2, true);
-    	    ctx.fill();
+    		var ctx = document.getElementById("myCanvas").getContext("2d");
+    		ctx.fillStyle = "#ff2626"; // Red color
+    		ctx.beginPath();
+    		ctx.arc(x, y, pointSize, 0, Math.PI * 2, true);
+    		ctx.fill();
     	}
+    };
+    
+    var vaciarListaPuntos = function(){
+    	puntos=[];
+		document.getElementById("mostrarPuntos").innerHTML=JSON.stringify(puntos);
     }
     
-   
+    var limpiarCanvas = function(){
+    	var can=document.getElementById("myCanvas");
+        var ctx=can.getContext("2d");
+
+        ctx.clearRect(0, 0, can.width, can.height);
+        ctx.beginPath();
+    }
    
     return {
         update: getPlansByName,
         getBlueprintsByNameAndAuthor : getBlueprintsByNameAndAuthor,
         restSwitch : restSwitch, 
-        capture : startCapture
-        
     };
 })();
 
