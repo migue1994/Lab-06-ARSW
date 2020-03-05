@@ -4,6 +4,7 @@ var app = (function () {
     var authorName;
     var list = [];
     var puntos = [];
+    var blue;
     
     let num = 0;
     
@@ -66,7 +67,7 @@ var app = (function () {
     };
 
     var getCanvas = function (blueprint) {
-    	startCapture();
+        blue = blueprint;
     	
         $("#currentBluePrint").text("Current blueprint: "+blueprint.name);
         var can=document.getElementById("myCanvas");
@@ -113,15 +114,11 @@ var app = (function () {
     		var rect = canvas.getBoundingClientRect();
     		var x = event.clientX - rect.left;
     		var y = event.clientY - rect.top;
-    	        
-    		punto = {coorX: x, coorY: y};
-    		puntos.push(punto);
-    	     
-    		document.getElementById("mostrarPuntos").innerHTML=JSON.stringify(puntos);
-    	     
-    		drawCoordinates(x,y);
-    	     
-    	    
+    		let punto = {x: x, y: y};
+    		blue.points.push(punto);
+    		getCanvas(blue);
+    		// document.getElementById("mostrarPuntos").innerHTML=JSON.stringify(blue.points);
+    		// drawCoordinates(x,y);
     	}
 
     	function drawCoordinates(x,y){	
@@ -149,7 +146,8 @@ var app = (function () {
     return {
         update: getPlansByName,
         getBlueprintsByNameAndAuthor : getBlueprintsByNameAndAuthor,
-        restSwitch : restSwitch, 
+        restSwitch : restSwitch,
+        startCapture : startCapture
     };
 })();
 
