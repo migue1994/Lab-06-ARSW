@@ -20,7 +20,7 @@
 
 </head>
 
-<body>
+<body  onload="app.capture()">
 <br/>
 <form>
 	<div class="cabecera">
@@ -54,13 +54,14 @@
 	
 		<h4 id="currentBluePrint"> </h4>
 
-		<canvas id="myCanvas" class="myCanvas"></canvas>
+		<canvas id="myCanvas" class="myCanvas" width="800" height="500"></canvas>
 
 
 	</div>
 	<div class="contenedor1">
 		<button type="button" class="btn-outline-primary" onclick="app.restSwitch()">Change Persistance</button>
 	</div>
+	
 
 </form>
 

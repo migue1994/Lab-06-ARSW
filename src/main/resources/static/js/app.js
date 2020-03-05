@@ -1,15 +1,20 @@
 var mock = apimock;
 
 var app = (function () {
+	
+	
+	
     var authorName;
     var list = [];
-
+    var pointSize=3;
+    
     let num = 0;
+    
 
     var setName = function (author) {
         authorName = author;
     };
-
+    
 
     var getPlansByName = function (author) {
         setName(author);
@@ -88,12 +93,87 @@ var app = (function () {
             num = 0;
             mock = apimock;
         }
+    };
+    
+    /*var capture = function (){
+    	
+    	var canvas=document.getElementById("myCanvas"),
+    	ctx=canvas.getContext("2d");
+    	var offset=getOffset(canvas);
+    	
+    	
+    	if(window.PointerEvent){
+    		canvas.addEventListener("pointerdown", draw, false);
+    	}
+    	
+    	else{
+    		canvas.addListener("mousedown", draw, false);
+    	}
+    };
+    
+    var draw = function(event){
+    	var canvas=canvas=document.getElementById("myCanvas");
+    	var ctx=canvas.getContext("2d");
+    	ctx.fillRect(event.pageX-offset, event.pageY-offset);
+    };
+    
+    var getOffset = function(obj){
+    	var offsetLeft=0;
+    	var offsetTop=0;
+    	
+    	do {
+    		if (!isNaN(obj.offsetLeft)) {
+    			offsetLeft += obj.offsetLeft;
+    		}
+    		if (!isNaN(obj.offsetTop)) {
+                offsetTop += obj.offsetTop;
+            }   
+    	} 
+    	while(obj = obj.offsetParent );
+    	
+    	return {
+    		
+    		left : offsetLeft,
+    		top : offsetTop
+    	};
+    };*/
+    
+    var startCapture = function(){
+    	var canvas=document.getElementById("myCanvas");
+    	$("#myCanvas").click(function(e){
+    	     getPosition(e); 
+    	});
+
+    	var pointSize = 3;
+
+    	function getPosition(event){
+    	     var rect = canvas.getBoundingClientRect();
+    	     var x = event.clientX - rect.left;
+    	     var y = event.clientY - rect.top;
+    	        
+    	     drawCoordinates(x,y);
+    	}
+
+    	function drawCoordinates(x,y){	
+    	  	var ctx = document.getElementById("myCanvas").getContext("2d");
+
+
+    	  	ctx.fillStyle = "#ff2626"; // Red color
+
+    	    ctx.beginPath();
+    	    ctx.arc(x, y, pointSize, 0, Math.PI * 2, true);
+    	    ctx.fill();
+    	}
     }
+    
+   
    
     return {
         update: getPlansByName,
         getBlueprintsByNameAndAuthor : getBlueprintsByNameAndAuthor,
-        restSwitch : restSwitch
+        restSwitch : restSwitch, 
+        capture : startCapture
+        
     };
 })();
 
