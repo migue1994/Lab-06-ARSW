@@ -1,39 +1,57 @@
-.cabecera{
-  height: 20%;
-  width: 99%;
-  margin: 1% 1%;
+.cabecera {
+	height: 10%;
+	width: 98%;
+	margin: 1% 1%;
+	/*background-color: lightblue;*/
 }
 
-.contenedor1{
-  width: 48%;
-  height: 99%;
-  margin: 1% 1%;
-  float: left;
+.contenedor1 {
+	width: 48%;
+	height: 99%;
+	margin: 0% 1%;
+	float: left;
+	/*background-color: yellow;*/
 }
 
-.contenedor2{
-  width: 48%;
-  height: 99%;
-  margin: 1% 1%;
-  float: right;
-  text-align:center;
-
+.contenedor2 {
+	width: 48%;
+	height: 99%;
+	margin: 0% 1%;
+	float: right;
+	/*background-color: purple;*/
 }
 
 .table{
-  width: 98%;
-  text-align:center;
+	width: 98%;
+	text-align: center;
 }
 
-.myCanvas {
-  cursor:crosshair;
-  border:1px solid #000000;
-  padding-left: 0;
-  padding-right: 0;
-  margin-left: auto;
-  margin-right: auto;
-  display: block;
-  
+.myCanvas  {
+	width: 80%;
+	height: 100%;
+	cursor:crosshair;
+	border: 1px solid #000000;
+	padding-left: 0;
+	padding-right: 0;
+	display: block;
+}
+
+
+
+.divSave{
+	width: 40%;
+	float: left;
+	/*background-color: red;*/
+}
+
+.divDeleteButton{
+	width: 40%;
+	float: right;
+	/*background-color: #ADFF2F;*/
+}
+
+.btn-success{
+	background-color: #ADFF2F;
 }
 
 

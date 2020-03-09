@@ -16,6 +16,7 @@ var app = (function () {
 
     var getPlansByName = function (author) {
     	limpiarCanvas();
+    	
     	vaciarListaPuntos();
 
         setName(author);
@@ -111,9 +112,8 @@ var app = (function () {
     	var pointSize = 3;
 
     	function getPosition(event){
-    		var rect = canvas.getBoundingClientRect();
-    		var x = event.clientX - rect.left;
-    		var y = event.clientY - rect.top;
+    		var x = event.offsetX * canvas.width / canvas.clientWidth | 0;
+    		var y = event.offsetY * canvas.height / canvas.clientHeight | 0;
     		let punto = {x: x, y: y};
     		blue.points.push(punto);
     		getCanvas(blue);
@@ -121,13 +121,13 @@ var app = (function () {
     		// drawCoordinates(x,y);
     	}
 
-    	function drawCoordinates(x,y){	
+    	/*function drawCoordinates(x,y){	
     		var ctx = document.getElementById("myCanvas").getContext("2d");
     		ctx.fillStyle = "#ff2626"; // Red color
     		ctx.beginPath();
     		ctx.arc(x, y, pointSize, 0, Math.PI * 2, true);
     		ctx.fill();
-    	}
+    	}*/
     };
     
     var vaciarListaPuntos = function(){
