@@ -15,6 +15,7 @@ var app = (function () {
     
 
     var getPlansByName = function (author) {
+    	cleanTable();
     	limpiarCanvas();
     	
     	vaciarListaPuntos();
@@ -23,7 +24,7 @@ var app = (function () {
         $("#authorName").text(author);
     	$("#authorPlane").text(author+"'s blueprints:");
 
-    	mock.getBlueprintsByAuthor(author, getTable);
+    	mock.getBlueprintsByAuthor(authorName, getTable);
     };
 
     var getPoints = function (blueprints) {
@@ -59,6 +60,21 @@ var app = (function () {
         getPointsSum(blueprints);
 
     };
+    
+    var cleanTable = function () {
+        
+        
+        $("#blueprintTableBody").empty();
+            $("#blueprintTableBody").append(
+                "<tr> " +
+                "<td></td> " +
+                "<td></td> " +
+            "</tr>"
+            );
+      
+
+    };
+
 
     var getBlueprintsByNameAndAuthor = function (name, author) {
     	limpiarCanvas();
@@ -117,6 +133,7 @@ var app = (function () {
     		let punto = {x: x, y: y};
     		blue.points.push(punto);
     		getCanvas(blue);
+    		$("#pointsSum").text("Total user points: " + blue.points.length);
     		// document.getElementById("mostrarPuntos").innerHTML=JSON.stringify(blue.points);
     		// drawCoordinates(x,y);
     	}

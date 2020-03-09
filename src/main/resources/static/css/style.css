@@ -50,8 +50,15 @@
 	/*background-color: #ADFF2F;*/
 }
 
-.btn-success{
-	background-color: #ADFF2F;
+.btn-warning{
+	background-color: #a0f54b;
+	border: #b5f39a 1px solid;
 }
+
+.btn-success{
+	background-color: #f05c90;
+	border: #f05c90 1px solid;
+}
+
 
 
