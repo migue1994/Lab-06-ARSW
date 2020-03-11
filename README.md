@@ -1,4 +1,4 @@
-# Lab-5-ARSW
+# Lab-6-ARSW
 
 # Authors
 
@@ -9,7 +9,7 @@
 
 To download the project, we must open a cmd terminal and go to any directory, then we write the next code:
 
-```$ git clone https://github.com/migue1994/Lab-5-ARSW.git```
+```$ git clone https://github.com/migue1994/Lab-06-ARSW.git```
 
 After that, the project will be dowloaded in the directory where we are in.
 To execute the project, write the code
@@ -18,57 +18,52 @@ To execute the project, write the code
 
 And we go to the localhost address in our browser. There will be the main page of the web application where we can enter the name of any author and it displays a list with the name of all blueprints available, next to a button that allows us to draw the points of the blueprint in the canvas.
 
-# Fronted views
+# Blueprint Management 4 - Heavy Clients
 
-After to create the directory that contains the javascript files, we've created the next index.html file:
+## Adding action listener to canvas
 
-![](https://github.com/migue1994/Lab-5-ARSW/blob/master/src/main/resources/img/tablehtml.PNG)
+The first step is add the code needed to perform the action listener that allows us to paint some aditionals points, so the bellow code show how that function was implemented.
 
-The code shown above belongs to a form that contains an input and a button, where we can query any author in as long as it is in the apimok.js file.
+![startCanvas]()
 
-Once we do the query, a table will be show with the logs of the blueprints names and the number of points that owns. The code bellow correspond to the html block that makes the table.
+Once we run the service, we can now paint more lines in to the load canvas of the any author as we can see in the next image.
 
+![muestraCanvas]()
 
-![tablaHtml](https://github.com/migue1994/Lab-5-ARSW/blob/master/src/main/resources/img/table.PNG)
+In the code shown beforely, the new point added is join with the las point on the canvas.
 
-# Fronted Logic
+So now, we have to add a save/update and a delete button, wich allows us to perform update, save and delete funcionalities with a selected blueprint, then the first step is put the button tags in the html file
 
-Once we've copied the aplimock file to the js folder and put this files as resources in the html page, we created the javascript functions that allow us to perform the queries, this file looks as follows.
+![save-delete-button-tags]()
 
-![capturaJs](https://github.com/migue1994/Lab-5-ARSW/blob/master/src/main/resources/img/capturaJs.PNG)
+After, we must add the functionalities in the app.js file, which perform the corresponding actions of the buttons.
 
-In the image above we can see the getPansByName function, wich use the get getBlueprintsByAuthor function contained in the apimock.js file, to execute the callbacks and call other function as follows
+![saveFunctionality]()
 
-![tablaJs](https://github.com/migue1994/Lab-5-ARSW/blob/master/src/main/resources/img/tableJs.PNG)
+![deleteFunctionality]()
 
-The above code allows update the html table through a async method, wich allow modify the table without reload the page
-Now we open the localhost address in the browser and we got this.
+The above functions shown, depend on the functions that are located in the apiclient.js file, which allow connect the fronted view with backend and fetch the information we need. This functions are shown in the following picture.
 
-![withoutCanvas](https://github.com/migue1994/Lab-5-ARSW/blob/master/src/main/resources/img/withoutCanvas.PNG)
+![saveRest]()
 
-# Next Week
+![deleteRest]()
 
-the code of the table, has a block that contains a button, wich calls a function that makes a canvas where the points of the blueprint are displayed in, this function is show in the bellow image
+Finally, we must add a button which allows as create a new blueprint where we enter a new blueprint's name, after press the save button and the new blueprint will appear in the blueprints table and we can add new points as we was doing before.
 
-![canvasJs](https://github.com/migue1994/Lab-5-ARSW/blob/master/src/main/resources/img/canvasJs.PNG)
+The html tag is bellow.
 
-In the app.js file, we creted a getBlueprintsByAuthorAndName function that use the getBlueprintsByAuthorAndName function located in the apimock.js file, it query the blueprint using the author name and the blueprint name to get an object with only the points contains in that blueprint, this function has a callback that execute the getCanvas function to draw the blueprint in the browser, this function looks like as follows
+![createTag]()
 
-![GetBlueprintByauthorandname](https://github.com/migue1994/Lab-5-ARSW/blob/master/src/main/resources/img/getBlueprintByAuthorAndName.PNG)
+And the app.js code as follows
 
-So if we open the browser in the localhost address, we'll see the next images
+![createApp]()
 
-![TableBrowser1](https://github.com/migue1994/Lab-5-ARSW/blob/master/src/main/resources/img/tableBrowser1.PNG)
-![TableBrowser2](https://github.com/migue1994/Lab-5-ARSW/blob/master/src/main/resources/img/tableBrowser2.PNG)
+Once we enter the new blueprint's name, we must press the save/update button, its will invoke the update function located in app.js and perform an action depending of the name attribute, if it is null, the current blueprint will be updated or if it is not null, a new blueprint will be created with the atribute name.
 
-To connect with the API rest, we've created a new file called apiclient, this file contains the next code
+Then, if we execte the app in the localhost address, we are going to have the next.
 
-![apiclient](https://github.com/migue1994/Lab-5-ARSW/blob/master/src/main/resources/img/Apiclient.PNG)
+![getName]()
 
-Now, if we execute the springboot service, we could do the same queries but this time the repository is the inMemoryBlueprintPersistance class, so it displays the next blueprints
+![newBlueprint]()
 
-![persistence1](https://github.com/migue1994/Lab-5-ARSW/blob/master/src/main/resources/img/persistance1.PNG)
-
-![persistence2](https://github.com/migue1994/Lab-5-ARSW/blob/master/src/main/resources/img/persistance%202.PNG)
-
-Finally, we put a button wich change the reference repository, when we start the app, the repository by default is the apimock.js, if we ckick on change repository button, the reference change to the api rest repository and vice versa.
+![lastImage]()
