@@ -41,7 +41,6 @@
 	
 	<div class="contenedor1">
 		<h3 id="authorPlane"></h3>
-		<br/>
 		<table id="blueprintTable" class="table">
 			<thead>
 			<tr>
@@ -59,22 +58,19 @@
 		<button type="button" class="btn-outline-primary" onclick="app.restSwitch()">Change Persistance</button>
 		<br/>
 	</div>
-	
-	<div>
-	
-	
-	</div>
+
 	
 	<div class="contenedor2">
-	
-		<button type="button" class="btn btn-danger btn-sm">Create new blueprint</button>
+		<b>New bleprint's name: </b>
+		<input type="text" id="newName">
+		<button type="button" class="btn btn-danger btn-sm" onclick="app.createBlueprint()">Create new blueprint</button>
 		<br/><br/>
 		<h4 id="currentBluePrint"> </h4>
 		<canvas id="myCanvas" class="myCanvas"></canvas>
 		<br/>
 		
 		<div class="divSave">
-			<button type="button" class="btn btn-warning btn-sm" onclick="app.updateSave()">Save/Update</button>
+			<button type="button" class="btn btn-warning btn-sm" onclick="app.updateSave(newName.value)">Save/Update</button>
 		</div>
 		
 		<div class="divDeleteButton">

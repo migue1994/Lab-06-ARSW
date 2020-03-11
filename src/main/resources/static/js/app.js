@@ -8,25 +8,24 @@ var app = (function () {
     var bluePrintName;
     let num = 0;
     var numOfBluePrint;
-    
-    
+
 
     var setName = function (author) {
         authorName = author;
     };
-    
+
 
     var getPlansByName = function (author) {
-    	cleanTable();
-    	limpiarCanvas();
-    	
-    	vaciarListaPuntos();
+        cleanTable();
+        limpiarCanvas();
+
+        vaciarListaPuntos();
 
         setName(author);
         $("#authorName").text(author);
-    	$("#authorPlane").text(author+"'s blueprints:");
+        $("#authorPlane").text(author + "'s blueprints:");
 
-    	mock.getBlueprintsByAuthor(authorName, getTable);
+        mock.getBlueprintsByAuthor(authorName, getTable);
     };
 
     var getPoints = function (blueprints) {
@@ -34,80 +33,80 @@ var app = (function () {
             return {name: blueprint.name, points: blueprint.points.length};
         });
     };
-    
-    var getPointsSum = function(blueprints) {
-    	// Función reductora sobre cada elemento en la lista blueprints
-    	var sumPoints=blueprints.reduce(function(suma, blueprint){
-    		return suma+blueprint.points;
-    	}, 0);
-    	
-    	$("#pointsSum").text("Total user points: " + sumPoints);
-    }; 
-    
+
+    var getPointsSum = function (blueprints) {
+        // Función reductora sobre cada elemento en la lista blueprints
+        var sumPoints = blueprints.reduce(function (suma, blueprint) {
+            return suma + blueprint.points;
+        }, 0);
+
+        $("#pointsSum").text("Total user points: " + sumPoints);
+    };
+
     var getTable = function (blueprints) {
-    	list = blueprints;
-    	numOfBluePrint=blueprints.length;
-    	
-    	
-    	blueprints = getPoints(blueprints);
-        
+        list = blueprints;
+        numOfBluePrint = blueprints.length;
+
+
+        blueprints = getPoints(blueprints);
+
         $("#blueprintTableBody").empty();
         blueprints.map(function (blueprint) {
             $("#blueprintTableBody").append(
                 "<tr> " +
                 "<td>" + blueprint.name + "</td> " +
                 "<td>" + blueprint.points + "</td> " +
-                "<td><button type='button' class='btn-outline-success' onclick='app.getBlueprintsByNameAndAuthor( \"" +blueprint.name + '" , "' + authorName + "\")' >Open</button></td>"+
-            "</tr>"
+                "<td><button type='button' class='btn-outline-success' onclick='app.getBlueprintsByNameAndAuthor( \"" + blueprint.name + '" , "' + authorName + "\")' >Open</button></td>" +
+                "</tr>"
             );
         });
 
         getPointsSum(blueprints);
 
     };
-    
+
     var cleanTable = function () {
-        
-        
+
+
         $("#blueprintTableBody").empty();
-            $("#blueprintTableBody").append(
-                "<tr> " +
-                "<td></td> " +
-                "<td></td> " +
+        $("#blueprintTableBody").append(
+            "<tr> " +
+            "<td></td> " +
+            "<td></td> " +
             "</tr>"
-            );
-      
+        );
+
 
     };
 
 
     var getBlueprintsByNameAndAuthor = function (name, author) {
-    	limpiarCanvas();
-    	vaciarListaPuntos();
-    	
-    	bluePrintName=name;
-    	
+        $("#newName").val("");
+        limpiarCanvas();
+        vaciarListaPuntos();
+
+        bluePrintName = name;
+
         mock.getBlueprintsByNameAndAuthor(name, author, getCanvas);
     };
 
     var getCanvas = function (blueprint) {
         blue = blueprint;
-    	
-        $("#currentBluePrint").text("Current blueprint: "+blueprint.name);
-        var can=document.getElementById("myCanvas");
-        var ctx=can.getContext("2d");
+
+        $("#currentBluePrint").text("Current blueprint: " + blueprint.name);
+        var can = document.getElementById("myCanvas");
+        var ctx = can.getContext("2d");
 
         ctx.clearRect(0, 0, can.width, can.height);
         ctx.beginPath();
 
         var aux;
 
-        blueprint.points.map(function(point){
-            if(!aux){
-                aux=point;
+        blueprint.points.map(function (point) {
+            if (!aux) {
+                aux = point;
                 ctx.moveTo(aux.x, aux.y);
-            }
-            else{
+            } else {
                 ctx.lineTo(point.x, point.y);
                 //draw
                 ctx.stroke();
@@ -116,84 +115,90 @@ var app = (function () {
     };
 
     var restSwitch = function () {
-        if (num == 0){
+        if (num == 0) {
             mock = apiclient;
             num++;
-        }else {
+        } else {
             num = 0;
             mock = apimock;
         }
     };
-    
-    
-    var startCapture = function(){
-    	var canvas=document.getElementById("myCanvas");
-    	$("#myCanvas").click(function(e){
-    	     getPosition(e); 
-    	});
 
-    	var pointSize = 3;
 
-    	function getPosition(event){
-    		var x = event.offsetX * canvas.width / canvas.clientWidth | 0;
-    		var y = event.offsetY * canvas.height / canvas.clientHeight | 0;
-    		let punto = {x: x, y: y};
-    		
-    		var currentBlue=list.filter(obj => {
-    		      return obj.name === bluePrintName;
-    	    })[0];
-    		
-    		currentBlue.points.push({ x: x, y: y });
-    		
-    	    console.log(currentBlue);
-    	    getCanvas(currentBlue);
-    		
-    		//blue.points.push(punto);
-    		//getCanvas(blue);
-    		//$("#pointsSum").text("Total user points: " + blue.points.length);
-    		// document.getElementById("mostrarPuntos").innerHTML=JSON.stringify(blue.points);
-    		// drawCoordinates(x,y);
-    	}
+    var startCapture = function () {
+        var canvas = document.getElementById("myCanvas");
+        $("#myCanvas").click(function (e) {
+            getPosition(e);
+        });
+
+        var pointSize = 3;
+
+        function getPosition(event) {
+            var x = event.offsetX * canvas.width / canvas.clientWidth | 0;
+            var y = event.offsetY * canvas.height / canvas.clientHeight | 0;
+
+            var currentBlue = list.filter(obj => {
+                return obj.name === bluePrintName;
+            })[0];
+
+            currentBlue.points.push({x: x, y: y});
+
+            console.log(currentBlue);
+            getCanvas(currentBlue);
+        }
     };
-    
-    var vaciarListaPuntos = function(){
-    	puntos=[];
-		document.getElementById("mostrarPuntos").innerHTML=JSON.stringify(puntos);
+
+    var vaciarListaPuntos = function () {
+        puntos = [];
+        // document.getElementById("mostrarPuntos").innerHTML = JSON.stringify(puntos);
     }
-    
-    var limpiarCanvas = function(){
-    	var can=document.getElementById("myCanvas");
-        var ctx=can.getContext("2d");
+
+    var limpiarCanvas = function () {
+        var can = document.getElementById("myCanvas");
+        var ctx = can.getContext("2d");
 
         ctx.clearRect(0, 0, can.width, can.height);
         ctx.beginPath();
     }
-    
-    
-    var updateSave = function(){
-    	var blueprint = list.filter(obj => {
-    		return obj.name === bluePrintName;
-    	})[0];
-    	mock.setBluePrint(bluePrintName, authorName, JSON.stringify(blueprint));
+
+
+    var updateSave = function (newName) {
+        if (newName) {
+            blue.name = newName;
+            blue.points = [];
+            mock.setBluePrint(bluePrintName, authorName, JSON.stringify(blue));
+
+        } else {
+            var blueprint = list.filter(obj => {
+                return obj.name === bluePrintName;
+            })[0];
+            mock.setBluePrint(bluePrintName, authorName, JSON.stringify(blueprint));
+        }
     }
-    
-    var blueDelete = function(){
-    	if(numOfBluePrint > 1){
-    		mock.deleteBlueprint(bluePrintName, authorName);
-    	}
-    	else{
-    		alert("No es posible borrar más planos")
-    	}
+
+    var blueDelete = function () {
+        if (numOfBluePrint > 1) {
+            mock.deleteBlueprint(bluePrintName, authorName);
+        } else {
+            alert("No es posible borrar más planos")
+        }
     }
-    
-   
+
+    var createBlueprint = function () {
+        limpiarCanvas();
+        alert("Please enter the new blueprint's name and press the save/update button");
+
+    }
+
+
     return {
         update: getPlansByName,
-        getBlueprintsByNameAndAuthor : getBlueprintsByNameAndAuthor,
-        restSwitch : restSwitch,
-        startCapture : startCapture,
-        updateSave : updateSave,
-        blueDelete : blueDelete
+        getBlueprintsByNameAndAuthor: getBlueprintsByNameAndAuthor,
+        restSwitch: restSwitch,
+        startCapture: startCapture,
+        updateSave: updateSave,
+        blueDelete: blueDelete,
+        createBlueprint: createBlueprint
     };
 })();
 
