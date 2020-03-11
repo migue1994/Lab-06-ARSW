@@ -5,10 +5,10 @@ var app = (function () {
     var list = [];
     var puntos = [];
     var blue;
-    
-    let num = 0;
-    
     var bluePrintName;
+    let num = 0;
+    var numOfBluePrint;
+    
     
 
     var setName = function (author) {
@@ -46,6 +46,9 @@ var app = (function () {
     
     var getTable = function (blueprints) {
     	list = blueprints;
+    	numOfBluePrint=blueprints.length;
+    	
+    	
     	blueprints = getPoints(blueprints);
         
         $("#blueprintTableBody").empty();
@@ -174,7 +177,14 @@ var app = (function () {
     	mock.setBluePrint(bluePrintName, authorName, JSON.stringify(blueprint));
     }
     
-    
+    var blueDelete = function(){
+    	if(numOfBluePrint > 1){
+    		mock.deleteBlueprint(bluePrintName, authorName);
+    	}
+    	else{
+    		alert("No es posible borrar más planos")
+    	}
+    }
     
    
     return {
@@ -182,7 +192,8 @@ var app = (function () {
         getBlueprintsByNameAndAuthor : getBlueprintsByNameAndAuthor,
         restSwitch : restSwitch,
         startCapture : startCapture,
-        updateSave : updateSave
+        updateSave : updateSave,
+        blueDelete : blueDelete
     };
 })();
 

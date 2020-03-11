@@ -76,5 +76,15 @@ public class BlueprintsServices {
     public Set<Blueprint> getBlueprintsByAuthor(String author) throws BlueprintNotFoundException {
         return bpp.getBlueprintByAuthor(author);
     }
+    
+    /**
+     * Metodo para eliminar un blueprint
+     * @param author blueprint's author
+     * @param bprintname blueprint's name
+     * @throws BlueprintNotFoundException if there is no such blueprint
+     */
+    public void deleteBlueprint(String author, String bprintname) throws BlueprintNotFoundException{
+    	bpp.deleteBluePrint(author, bprintname);
+    }
 
 }

@@ -40,13 +40,30 @@ var apiclient = (function () {
         		},
         	
 	        	function(){
-	        		console.info("ERROR setBlueprint");
+	        		console.info("ERROR ON setBluePrint")
 	        	}
         	
         	);
-        }
+        },
+        
+        deleteBlueprint : function(name, author){
+        	var delBlue =$.ajax({
+        		url:  "/blueprints/" + author + "/" + name + "/",
+        		type: 'DELETE',
+        		contentType: "application/json"
+        	});
         	
-    
+        	
+        	delBlue.then(
+	        	function() {
+					app.update(author);
+					console.info("Successful delete");
+				}, 
+				function() {
+					console.info("ERROR ON deleteBlueprint")
+				}
+			);
+        }
     }
 })();
 
