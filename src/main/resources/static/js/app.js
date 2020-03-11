@@ -1,4 +1,4 @@
-var mock = apimock;
+var mock = apiclient;
 
 var app = (function () {
     var authorName;
@@ -7,6 +7,8 @@ var app = (function () {
     var blue;
     
     let num = 0;
+    
+    var bluePrintName;
     
 
     var setName = function (author) {
@@ -43,8 +45,8 @@ var app = (function () {
     }; 
     
     var getTable = function (blueprints) {
-        blueprints = getPoints(blueprints);
-        list = blueprints;
+    	list = blueprints;
+    	blueprints = getPoints(blueprints);
         
         $("#blueprintTableBody").empty();
         blueprints.map(function (blueprint) {
@@ -79,6 +81,8 @@ var app = (function () {
     var getBlueprintsByNameAndAuthor = function (name, author) {
     	limpiarCanvas();
     	vaciarListaPuntos();
+    	
+    	bluePrintName=name;
     	
         mock.getBlueprintsByNameAndAuthor(name, author, getCanvas);
     };
@@ -131,20 +135,22 @@ var app = (function () {
     		var x = event.offsetX * canvas.width / canvas.clientWidth | 0;
     		var y = event.offsetY * canvas.height / canvas.clientHeight | 0;
     		let punto = {x: x, y: y};
-    		blue.points.push(punto);
-    		getCanvas(blue);
-    		$("#pointsSum").text("Total user points: " + blue.points.length);
+    		
+    		var currentBlue=list.filter(obj => {
+    		      return obj.name === bluePrintName;
+    	    })[0];
+    		
+    		currentBlue.points.push({ x: x, y: y });
+    		
+    	    console.log(currentBlue);
+    	    getCanvas(currentBlue);
+    		
+    		//blue.points.push(punto);
+    		//getCanvas(blue);
+    		//$("#pointsSum").text("Total user points: " + blue.points.length);
     		// document.getElementById("mostrarPuntos").innerHTML=JSON.stringify(blue.points);
     		// drawCoordinates(x,y);
     	}
-
-    	/*function drawCoordinates(x,y){	
-    		var ctx = document.getElementById("myCanvas").getContext("2d");
-    		ctx.fillStyle = "#ff2626"; // Red color
-    		ctx.beginPath();
-    		ctx.arc(x, y, pointSize, 0, Math.PI * 2, true);
-    		ctx.fill();
-    	}*/
     };
     
     var vaciarListaPuntos = function(){
@@ -159,12 +165,24 @@ var app = (function () {
         ctx.clearRect(0, 0, can.width, can.height);
         ctx.beginPath();
     }
+    
+    
+    var updateSave = function(){
+    	var blueprint = list.filter(obj => {
+    		return obj.name === bluePrintName;
+    	})[0];
+    	mock.setBluePrint(bluePrintName, authorName, JSON.stringify(blueprint));
+    }
+    
+    
+    
    
     return {
         update: getPlansByName,
         getBlueprintsByNameAndAuthor : getBlueprintsByNameAndAuthor,
         restSwitch : restSwitch,
-        startCapture : startCapture
+        startCapture : startCapture,
+        updateSave : updateSave
     };
 })();
 

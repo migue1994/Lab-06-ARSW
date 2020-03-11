@@ -21,7 +21,32 @@ var apiclient = (function () {
                 },
                 async: true
             });
+        },
+        
+        setBluePrint: function (name, author, newBluePrint){
+        	var putRequest=$.ajax({
+        		url:  "/blueprints/" + author + "/" + name + "/",
+        		type: 'PUT',
+        		data: newBluePrint,
+        		contentType: "application/json"
+        	});
+        	
+        	putRequest.then(
+        		function(){
+        			app.update(author);
+        			if(name){
+        				app.getPlan(name, author);
+        			}
+        		},
+        	
+	        	function(){
+	        		console.info("ERROR setBlueprint");
+	        	}
+        	
+        	);
         }
+        	
+    
     }
 })();
 
