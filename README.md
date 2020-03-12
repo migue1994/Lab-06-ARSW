@@ -48,22 +48,53 @@ The above functions shown, depend on the functions that are located in the apicl
 
 ![deleteRest](https://github.com/migue1994/Lab-06-ARSW/blob/master/img/deleteRest.PNG)
 
-Finally, we must add a button which allows as create a new blueprint where we enter a new blueprint's name, after press the save button and the new blueprint will appear in the blueprints table and we can add new points as we was doing before.
+Finally, in order to create a new blueprint we add a new button that allow us to do it. Basically, when the page is load the div that contains the input statement for the new blueprint's name, is hidden, and when the user press the create button this div appears.
 
-The html tag is bellow.
+Html code for our "Create Button"
 
-![createTag](https://github.com/migue1994/Lab-06-ARSW/blob/master/img/createTag.PNG)
+![createTag](https://github.com/migue1994/Lab-06-ARSW/blob/master/img/htmlButton.png)
 
-And the app.js code as follows
 
-![createApp](https://github.com/migue1994/Lab-06-ARSW/blob/master/img/createApp.PNG)
+Html code for hidden/show div
 
-Once we enter the new blueprint's name, we must press the save/update button, its will invoke the update function located in app.js and perform an action depending of the name attribute, if it is null, the current blueprint will be updated or if it is not null, a new blueprint will be created with the atribute name.
+![createTag](https://github.com/migue1994/Lab-06-ARSW/blob/master/img/htmlCreate.png)
 
-Then, if we execte the app in the localhost address, we are going to have the next.
+JavaScript code that allow us to hide the div on page load
 
-![getName](https://github.com/migue1994/Lab-06-ARSW/blob/master/img/getName.PNG)
+![createApp](https://github.com/migue1994/Lab-06-ARSW/blob/master/img/hide.png)
 
-![newBlueprint](https://github.com/migue1994/Lab-06-ARSW/blob/master/img/newBlueprint.PNG)
+JavaScript code that allow us to show the div
 
-![lastImage](https://github.com/migue1994/Lab-06-ARSW/blob/master/img/laterImage.PNG)
+![createApp](https://github.com/migue1994/Lab-06-ARSW/blob/master/img/hideCreate.png)
+
+Page on load
+
+![createApp](https://github.com/migue1994/Lab-06-ARSW/blob/master/img/current.png)
+
+Page after pressing "Create new blueprint" button
+
+![createApp](https://github.com/migue1994/Lab-06-ARSW/blob/master/img/createe.png)
+
+Once we enter the new blueprint's name, we must press the "Create" button, that will call our "createBlueprint" javaScript function.
+
+![createApp](https://github.com/migue1994/Lab-06-ARSW/blob/master/img/newC.png)
+
+JavaScript code that allow us to create a new blueprint
+
+![createApp](https://github.com/migue1994/Lab-06-ARSW/blob/master/img/create.png)
+
+Then, on the current author table will appear the new blueprint
+
+![createApp](https://github.com/migue1994/Lab-06-ARSW/blob/master/img/table.png)
+
+And you can create new points for the new plane:
+
+Before save/update
+
+![createApp](https://github.com/migue1994/Lab-06-ARSW/blob/master/img/new1.png)
+
+After save/update
+
+![createApp](https://github.com/migue1994/Lab-06-ARSW/blob/master/img/new2.png)
+
+
