@@ -35,7 +35,7 @@ var apiclient = (function () {
         		function(){
         			app.update(author);
         			if(name){
-        				app.getPlan(name, author);
+        				app.getBlueprintsByNameAndAuthor(name, author);
         			}
         		},
         	
