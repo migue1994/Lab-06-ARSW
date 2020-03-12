@@ -26,7 +26,7 @@
 
 </head>
 
-<body onload="app.startCapture()">
+<body onload="app.onload()">
 <form>
 	<div class="cabecera">
 		<h1>Blueprints</h1>
@@ -61,16 +61,24 @@
 
 	
 	<div class="contenedor2">
-		<b>New bleprint's name: </b>
-		<input type="text" id="newName">
-		<button type="button" class="btn btn-danger btn-sm" onclick="app.createBlueprint()">Create new blueprint</button>
-		<br/><br/>
+		
+		<div id="createBlue">
+			<input id="newBlue" type="text" placeholder="name" />
+			<button type="button" class="btn btn-primary" onclick="app.createBlueprint(newBlue.value)">Create</button>
+			<br/><br/>
+		</div>
+				
+		<div class="titulo_boton">
+			<button type="button" id="hideB" class="btn btn-danger btn-sm" onclick="app.hiddenCreate()">Create new blueprint</button>
+			
+		</div>
+		
 		<h4 id="currentBluePrint"> </h4>
 		<canvas id="myCanvas" class="myCanvas"></canvas>
 		<br/>
 		
 		<div class="divSave">
-			<button type="button" class="btn btn-warning btn-sm" onclick="app.updateSave(newName.value)">Save/Update</button>
+			<button type="button" class="btn btn-warning btn-sm" onclick="app.updateSave()">Save/Update</button>
 		</div>
 		
 		<div class="divDeleteButton">
@@ -81,10 +89,6 @@
 	</div>
 	
 	
-	<div id="mostrarPuntos"></div>
-	
-	
-
 </form>
 
 </body>

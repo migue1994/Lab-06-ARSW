@@ -3,11 +3,11 @@ var mock = apiclient;
 var app = (function () {
     var authorName;
     var list = [];
-    var puntos = [];
     var blue;
     var bluePrintName;
     let num = 0;
     var numOfBluePrint;
+    var create=false;
 
 
     var setName = function (author) {
@@ -18,8 +18,6 @@ var app = (function () {
     var getPlansByName = function (author) {
         cleanTable();
         limpiarCanvas();
-
-        vaciarListaPuntos();
 
         setName(author);
         $("#authorName").text(author);
@@ -66,24 +64,19 @@ var app = (function () {
     };
 
     var cleanTable = function () {
-
-
-        $("#blueprintTableBody").empty();
+    	$("#blueprintTableBody").empty();
         $("#blueprintTableBody").append(
             "<tr> " +
             "<td></td> " +
             "<td></td> " +
             "</tr>"
         );
-
-
     };
 
 
     var getBlueprintsByNameAndAuthor = function (name, author) {
         $("#newName").val("");
         limpiarCanvas();
-        vaciarListaPuntos();
 
         bluePrintName = name;
 
@@ -148,10 +141,6 @@ var app = (function () {
         }
     };
 
-    var vaciarListaPuntos = function () {
-        puntos = [];
-        // document.getElementById("mostrarPuntos").innerHTML = JSON.stringify(puntos);
-    }
 
     var limpiarCanvas = function () {
         var can = document.getElementById("myCanvas");
@@ -162,18 +151,11 @@ var app = (function () {
     }
 
 
-    var updateSave = function (newName) {
-        if (newName) {
-            blue.name = newName;
-            blue.points = [];
-            mock.setBluePrint(bluePrintName, authorName, JSON.stringify(blue));
-
-        } else {
-            var blueprint = list.filter(obj => {
-                return obj.name === bluePrintName;
-            })[0];
-            mock.setBluePrint(bluePrintName, authorName, JSON.stringify(blueprint));
-        }
+    var updateSave = function(){
+    	var blueprint = list.filter(obj => {
+    		return obj.name === bluePrintName;
+    	})[0];
+    	mock.setBluePrint(bluePrintName, authorName, JSON.stringify(blueprint));
     }
 
     var blueDelete = function () {
@@ -184,13 +166,35 @@ var app = (function () {
         }
     }
 
-    var createBlueprint = function () {
+    var createBlueprint = function(newBlueName) {
+    	hideBlue();
+    	
+    	var blueprint={
+    		author: authorName,
+            points: [],
+            name : newBlueName
+    	};
+    	mock.setBluePrint(bluePrintName, authorName, JSON.stringify(blueprint));
         limpiarCanvas();
-        alert("Please enter the new blueprint's name and press the save/update button");
 
     }
+    
+    var hiddenCreate = function(){
+    	var el = document.getElementById("createBlue"); 
+    	el.style.display = (el.style.display == 'none') ? 'block' : 'none'; 
+    }
+    
+    var onload = function(){
+    	hideBlue();
+    	startCapture();
+    	
+    }
+    
+    var hideBlue = function(){
+        $('#hideB').click();
 
-
+    }
+    
     return {
         update: getPlansByName,
         getBlueprintsByNameAndAuthor: getBlueprintsByNameAndAuthor,
@@ -198,7 +202,9 @@ var app = (function () {
         startCapture: startCapture,
         updateSave: updateSave,
         blueDelete: blueDelete,
-        createBlueprint: createBlueprint
+        createBlueprint: createBlueprint,
+        hiddenCreate:hiddenCreate,
+        onload : onload
     };
 })();
 
