@@ -69,7 +69,7 @@ JavaScript code that allow us to show the div
 
 Page on load
 
-![createApp](https://github.com/migue1994/Lab-06-ARSW/blob/master/img/current.png)
+![createApp](https://github.com/migue1994/Lab-06-ARSW/blob/master/img/normal.png)
 
 Page after pressing "Create new blueprint" button
 
